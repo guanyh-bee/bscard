@@ -2,12 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" style="width: 90%;height: 90%">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <title>申请补办</title>
     <script src="js/jquery-3.5.1.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/community.css">
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 <body>
 
@@ -15,11 +16,10 @@
 <!--<h2 th:text="${cardNumber}">hello</h2>-->
 <!--<h2 th:text="${departName}">hello</h2>-->
 
-<div class="row">
-    <div class="col-sm-2">
+<div class="container">
 
-    </div>
-    <div class="col-sm-8" style="margin-top: 30%">
+
+    <div  style="margin-top: 30%">
         <form name="submitForm" method="post" action="/card">
             <div class="form-group form-group-lg">
                 <label for="username">学生姓名</label>
@@ -42,11 +42,17 @@
                     <option value="3">黄花园校区</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary" style="margin-left: 50%">申请补卡</button>
+            <div>
+                <span th:text="${msg==null?'':msg}" style="color: red;font-size: 20px"></span>
+            </div >
+            <div style="margin-top: 10px;float: right">
+            <button type="submit" class="btn btn-primary" >申请补卡</button>
+            </div>
         </form>
-
+        <a href="www.ca-falcon.com/findMy"></a>
+        <a th:href="@{'http://www.ca-falcon.com/findMy?cardNumber='+${cardNumber}}" style="font-size: 18px">查询申请记录</a>
     </div>
-    <div class="col-sm-2"></div>
+</div>
 </div>
 
 

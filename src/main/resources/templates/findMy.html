@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="width: 90%;height: 90%">
+<head>
+    <meta charset="UTF-8">
+    <title>查询记录</title>
+    <script src="js/jquery-3.5.1.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/community.css">
+    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<body>
+<div class="container">
+
+<table class="table table-bordered">
+    <tr>
+        <td>姓名</td>
+        <td>卡号</td>
+        <td>状态</td>
+        <td>申请时间</td>
+    </tr>
+    <tr th:each="info:${information}">
+        <td th:text="${info.getName()}"></td>
+        <td th:text="${info.getNumber()}"></td>
+        <td th:text="${info.getStatus()==0?'正在处理中':'已补办'}"></td>
+        <td th:text="${#temporals.format(info.getApplyTime())}"></td>
+
+    </tr>
+</table>
+</div>
+</body>
+</html>
