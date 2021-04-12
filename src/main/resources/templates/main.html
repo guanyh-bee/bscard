@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <script src="/js/jquery-3.5.1.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/card.css">
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="nav::nav"></div>
+<div class="main_container">
+    <table class="table table-hover">
+        <tr>
+            <th>姓名</th>
+            <th>卡号</th>
+            <th>部门</th>
+            <th>申请时间</th>
+            <th>处理时间</th>
+
+            <th>操作</th>
+        </tr>
+        <tr th:each="infomation:${info}">
+            <td th:text="${infomation.getName()}"></td>
+            <td th:text="${infomation.getNumber()}"></td>
+            <td th:text="${infomation.getDepartment()}"></td>
+            <td th:text="${#temporals.format(infomation.getApplyTime())}"></td>
+            <td th:text="${infomation.getHandleTime() == null ? '暂无':  #temporals.format(infomation.getHandleTime())}"></td>
+
+            <td >
+
+                <a th:if="${infomation.getStatus() == 0}" class="btn btn-warning " th:href="@{'http://www.ca-falcon.com/op/confirm?id='+${infomation.getId()}}">点击确认已补卡</a>
+                <span th:if="${infomation.getStatus() == 1}">已补卡</span>
+            </td>
+
+        </tr>
+    </table>
+</div>
+</body>
+</html>

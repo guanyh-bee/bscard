@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" style="width: 90%;height: 90%">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>申请补办</title>
@@ -19,7 +19,8 @@
 <div class="container">
 
 
-    <div  style="margin-top: 30%">
+    <div  style="margin-top: 8%">
+        <div>
         <form name="submitForm" method="post" action="/card">
             <div class="form-group form-group-lg">
                 <label for="username">学生姓名</label>
@@ -35,22 +36,33 @@
             </div>
 
             <div class="form-group form-group-lg">
-                <label for="department">请确认校区</label>
-                <select class="form-control " name="school">
-                    <option value="1">鲁能校区</option>
-                    <option value="2">金科校区</option>
-                    <option value="3">黄花园校区</option>
+                <label for="department">请选择校区</label>
+                <select class="form-control " name="school" >
+                    <option value="1" th:selected="${school == null || school == 1}">鲁能校区</option>
+                    <option value="2" th:selected="${school == 2}">金科校区</option>
+                    <option value="3" th:selected="${school == 3}">黄花园校区</option>
                 </select>
+            </div>
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>提示：</strong> 请确保信息无误后再发起申请
             </div>
             <div>
                 <span th:text="${msg==null?'':msg}" style="color: red;font-size: 20px"></span>
             </div >
-            <div style="margin-top: 10px;float: right">
-            <button type="submit" class="btn btn-primary" >申请补卡</button>
+            <div th:if="${msg=='申请成功！'|| msg == '你已经提交过申请，请等待'?false:true}" style="display: flex;justify-content: space-between;margin-top: 8%">
+                <img src="http://www.ca-falcon.com/getCode">
+                <input type="text"  name="imgCode" required class="form-control input-lg"  placeholder="请输入验证码">
+
+            </div>
+            <div style="margin-top: 4%;" th:if="${msg=='申请成功！'|| msg == '你已经提交过申请，请等待'?false:true}" >
+            <button type="submit" class="btn btn-primary btn-block btn-lg"  >申请补卡</button>
             </div>
         </form>
-        <a href="www.ca-falcon.com/findMy"></a>
-        <a th:href="@{'http://www.ca-falcon.com/findMy?cardNumber='+${cardNumber}}" style="font-size: 18px">查询申请记录</a>
+        </div>
+       <div style="margin-top: 4%;">
+        <a th:href="@{'http://www.ca-falcon.com/findMy?cardNumber='+${cardNumber}}" class="btn btn-primary btn-lg btn-block" >查询申请记录及进度</a>
+       </div>
     </div>
 </div>
 </div>

@@ -1,0 +1,36 @@
+
+
+.login_container{
+    position: absolute;
+    padding: 30px;
+
+    width: 500px;
+    height: 400px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    border: #9d9d9d 2px solid;
+    border-radius: 5px;
+
+
+
+}
+
+html{
+    height: 100%;
+    width: 100%;
+
+}
+
+body{
+    height: 100%;
+    width: 100%;
+}
+.main_container{
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 30px;
+}
+.container{
+    margin-top: 30px;
+}

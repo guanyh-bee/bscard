@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" style="width: 90%;height: 90%">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>查询记录</title>
@@ -13,17 +13,17 @@
 <body>
 <div class="container">
 
-<table class="table table-bordered">
+<table class="table table-condensed">
     <tr>
-        <td>姓名</td>
-        <td>卡号</td>
-        <td>状态</td>
-        <td>申请时间</td>
+        <th>姓名</th>
+        <th>卡号</th>
+        <th>状态</th>
+        <th>申请时间</th>
     </tr>
-    <tr th:each="info:${information}">
+    <tr th:each="info:${information}" th:class="${info.getStatus()==0 ? 'danger':'success'}">
         <td th:text="${info.getName()}"></td>
         <td th:text="${info.getNumber()}"></td>
-        <td th:text="${info.getStatus()==0?'正在处理中':'已补办'}"></td>
+        <td th:text="${info.getStatus()==0?'处理中':'已补办'}"></td>
         <td th:text="${#temporals.format(info.getApplyTime())}"></td>
 
     </tr>

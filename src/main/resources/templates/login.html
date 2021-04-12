@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="width: 100%;height: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+  <script src="/js/jquery-3.5.1.min.js" type="application/javascript"></script>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/css/card.css">
+  <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body style="width: 100%;height: 100%">
+  <div class="login_container">
+      <form class="form-horizontal" method="post" action="/op/login" style="margin-top: 100px">
+          <div class="form-group">
+              <label for="username" class="col-sm-2 control-label">姓名</label>
+              <div class="col-sm-10">
+                  <input type="text" name="operatorName" required class="form-control" id="username" placeholder="请输入姓名">
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="password" class="col-sm-2 control-label">密码</label>
+              <div class="col-sm-10">
+                  <input type="password" name="password" required class="form-control" id="password" placeholder="请输入密码">
+              </div>
+          </div>
+
+              <span th:text="${msg==null?'':msg}" class="text-center" style="color: red"></span>
+
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-default">登陆</button>
+              </div>
+          </div>
+      </form>
+  </div>
+</body>
+</html>
