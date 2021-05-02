@@ -34,3 +34,11 @@ body{
 .container{
     margin-top: 30px;
 }
+
+.footer{
+    bottom: 40px;
+    position: absolute;
+    margin-left: 45%;
+    width: 500px;
+    height: 100px;
+}

@@ -6,6 +6,8 @@ import com.lmm.card.entity.Information;
 import com.lmm.card.entity.Operator;
 import com.lmm.card.mapper.InformationMapper;
 import com.lmm.card.mapper.OperatorMapper;
+import com.lmm.card.provider.MessageProvider;
+import com.lmm.card.provider.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,10 @@ public class OperatorController {
     private OperatorMapper operatorMapper;
     @Autowired
     private InformationMapper informationMapper;
+    @Autowired
+    private MessageProvider messageProvider;
+    @Autowired
+    private TokenProvider tokenProvider;
 
     @GetMapping("/toLogin")
     public String toLogin(){
@@ -64,7 +70,8 @@ public class OperatorController {
         information.setHandleTime(LocalDateTime.now());
         information.setOperator(user.getOperatorName());
         informationMapper.updateById(information);
-
+        Information information1 = informationMapper.selectById(id);
+        messageProvider.sendMessage(tokenProvider.getAccessToken(),information1.getName(),information1.getNumber(),0,null,1);
         return "redirect:/op/main";
     }
     @GetMapping("/search")

@@ -5,11 +5,14 @@ import cn.hutool.captcha.LineCaptcha;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lmm.card.entity.Information;
 import com.lmm.card.mapper.InformationMapper;
+import com.lmm.card.provider.MessageProvider;
+import com.lmm.card.provider.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletOutputStream;
@@ -23,6 +26,10 @@ import java.util.List;
 public class CardController {
     @Autowired
     private InformationMapper informationMapper;
+    @Autowired
+    private TokenProvider tokenProvider;
+    @Autowired
+    private MessageProvider messageProvider;
     @PostMapping("/card")
     public String card(Information information,String imgCode, Model model,HttpSession session){
         String code = (String)session.getAttribute("code");
@@ -57,6 +64,18 @@ public class CardController {
                 model.addAttribute("school",information.getSchool());
                 model.addAttribute("msg","申请成功！");
 
+                String accessToken = tokenProvider.getAccessToken();
+                System.out.println("accessToken = " + accessToken);
+                messageProvider.sendMessage(accessToken, information.getName(), information.getNumber(), 0, null, 0);
+                if(information.getSchool() == 1){
+                    messageProvider.sendMessage(accessToken,information.getName(),information.getNumber(),1,"D000580",0);
+                }else if(information.getSchool() == 2){
+                    messageProvider.sendMessage(accessToken,information.getName(),information.getNumber(),1,"D002029",0);
+                }else if(information.getSchool() == 3){
+                    messageProvider.sendMessage(accessToken,information.getName(),information.getNumber(),1,"D000191",0);
+                }
+
+
             }
         }
 
@@ -80,7 +99,7 @@ public class CardController {
     @ResponseBody
     public void createCode(HttpServletResponse response ,HttpSession session){
         //产生验证码图片的。图片的宽是116，高是36，验证码的长度是4，干扰线的条数是20
-        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(116, 36, 4, 20);
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(116, 36, 4, 10);
         //获取验证码图片中的字符串
         String code1 = lineCaptcha.getCode();
 
@@ -102,5 +121,12 @@ public class CardController {
         }
 
 
+    }
+
+    @ResponseBody
+    @RequestMapping("/test")
+    public String test(){
+        messageProvider.sendMessage(tokenProvider.getAccessToken(),"gyh","13436293894",0,null,0);
+        return "aaa";
     }
 }
